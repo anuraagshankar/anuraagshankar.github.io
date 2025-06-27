@@ -1,19 +1,21 @@
 :root {
-    /* Light mode palette - based on brilliant blue */
+    /* Light mode palette – based on brilliant blue */
     --bg-color: #f8faff;
-    --card-color-1: #e6f2ff;
-    --card-color-2: #cce7ff;
+    --card-color-1: #e6f2ff;  /* 96% lightness */
+    --card-color-2: #cce7ff;  /* 90% lightness */
+    --card-color-3: #b3d9ff;  /* 84% lightness */
     --text-color: #1a365d;
-    --border-color: #b3d9ff;
+    --border-color: #99ccff;  /* same as card-3, or you can bump to #99ccff for more contrast */
 }
 
 [data-theme="dark"] {
-    /* Dark mode palette - based on brilliant blue */
+    /* Dark mode palette – based on brilliant blue */
     --bg-color: #0a1929;
-    --card-color-1: #1e3a5f;
-    --card-color-2: #2d5aa0;
+    --card-color-1: #1e3a5f;  /* 17% lightness */
+    --card-color-2: #2d5aa0;  /* 25% lightness */
+    --card-color-3: #3c7ade;  /* 33% lightness */
     --text-color: #e6f2ff;
-    --border-color: #4a90e2;
+    --border-color: #4a90e2;  /* 40% lightness */
 }
 
 * {
@@ -42,7 +44,7 @@ body {
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    transition: scrollbar-color 0.3s ease;
+    transition: scrollbar-color 0.7s ease;
 }
 
 .container.scrollbar-visible:hover {
@@ -51,7 +53,7 @@ body {
 
 .container.scrollbar-visible:hover::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    transition: background 0.3s ease;
+    transition: background 0.7s ease;
 }
 
 .container.scrollbar-visible:hover::-webkit-scrollbar-thumb:hover {
@@ -72,6 +74,10 @@ body {
 
 .card.color-2 {
     background-color: var(--card-color-2);
+}
+
+.card.color-3 {
+    background-color: var(--card-color-3);
 }
 
 .top-bar {
@@ -319,18 +325,6 @@ body {
         margin: 0 2%;
         overflow-x: auto;
         overflow-y: visible;
-    }
-    
-    /* Create a wider content area that can be scrolled */
-    .container::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        /* Make the scrollable area wide enough for all cards */
-        width: max(100%, 98vw); /* Ensures minimum width for rightmost cards */
-        height: 100%;
-        pointer-events: none;
     }
 
     .card:not(.top-bar) {

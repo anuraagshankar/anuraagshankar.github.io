@@ -1,20 +1,15 @@
 const cardConfig = [
-    { id: '1', startx: 0, starty: 12, sizex: 35, sizey: 40, colorid: 1 },
-    { id: '2', startx: 37, starty: 12, sizex: 35, sizey: 40, colorid: 2 },
-    { id: '3', startx: 74, starty: 12, sizex: 35, sizey: 40, colorid: 1 },
-    { id: '4', startx: 0, starty: 54, sizex: 35, sizey: 43, colorid: 2 },
-    { id: '5', startx: 37, starty: 54, sizex: 35, sizey: 43, colorid: 1 },
-    { id: '6', startx: 74, starty: 54, sizex: 35, sizey: 43, colorid: 2 }
-
-    // { id: 'hero', startx: 0, starty: 12, sizex: 35, sizey: 45, colorid: 1 },
-    // { id: 'profile', startx: 39, starty: 12, sizex: 28, sizey: 45, colorid: 2 },
-    // { id: 'project1', startx: 69, starty: 12, sizex: 38, sizey: 28, colorid: 1 },
-    // { id: 'about', startx: 0, starty: 59, sizex: 25, sizey: 28, colorid: 2 },
-    // { id: 'contact', startx: 29, starty: 59, sizex: 25, sizey: 28, colorid: 1 },
-    // { id: 'project2', startx: 69, starty: 42, sizex: 29, sizey: 15, colorid: 2 },
-    // { id: 'project3', startx: 56, starty: 59, sizex: 21, sizey: 28, colorid: 1 },
-    // { id: 'project4', startx: 79, starty: 59, sizex: 19, sizey: 28, colorid: 2 }
+  { id: 'research_experience', startx: 0,  starty: 12,  sizex: 23, sizey: 46, colorid: 1 },
+  { id: 'photo', startx: 24, starty: 12,  sizex: 23, sizey: 28, colorid: 2 },
+  { id: 'education', startx: 48, starty: 12,  sizex: 28, sizey: 28, colorid: 1 },
+  { id: 'professional_experience', startx: 77, starty: 12, sizex: 23, sizey: 40, colorid: 3 },
+  { id: 'publications', startx: 0,  starty: 59, sizex: 23, sizey: 39, colorid: 2},
+  { id: 'hobbies', startx: 24, starty: 41, sizex: 30, sizey: 57, colorid: 3 },
+  { id: 'teaching_and_mentoring_experience', startx: 55, starty: 41, sizex: 21, sizey: 30, colorid: 2 },
+  { id: 'coursework', startx: 77, starty: 53, sizex:  23, sizey: 45, colorid: 2 },
+  { id: 'achievements', startx: 55, starty: 72, sizex:  21, sizey: 26, colorid: 1 },
 ];
+
 
 let lastScrollY = 0;
 let isScrollingDown = false;
@@ -127,7 +122,7 @@ function showScrollbar() {
     
     scrollbarTimeout = setTimeout(() => {
         container.classList.remove('scrollbar-visible');
-    }, 2000); // Hide after 2 seconds
+    }, 1000);
 }
 
 // Show scrollbar on mouse movement or scroll
