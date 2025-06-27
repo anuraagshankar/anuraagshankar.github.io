@@ -39,6 +39,23 @@ body {
     width: 100vw;
     min-height: 100vh;
     padding: 20px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+}
+
+.container.scrollbar-visible:hover {
+    scrollbar-color: var(--border-color) transparent;
+}
+
+.container.scrollbar-visible:hover::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    transition: background 0.3s ease;
+}
+
+.container.scrollbar-visible:hover::-webkit-scrollbar-thumb:hover {
+    background: var(--text-color);
 }
 
 .card {
@@ -297,6 +314,23 @@ body {
 @media (min-width: 769px) {
     .container {
         padding-top: 120px;
+        /* Set container width to match top bar and enable horizontal scroll */
+        width: 96%;
+        margin: 0 2%;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+    
+    /* Create a wider content area that can be scrolled */
+    .container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* Make the scrollable area wide enough for all cards */
+        width: max(100%, 98vw); /* Ensures minimum width for rightmost cards */
+        height: 100%;
+        pointer-events: none;
     }
 
     .card:not(.top-bar) {

@@ -1,21 +1,28 @@
 const cardConfig = [
-    { id: 'hero', startx: 2, starty: 12, sizex: 35, sizey: 45, colorid: 1 },
-    { id: 'profile', startx: 39, starty: 12, sizex: 28, sizey: 45, colorid: 2 },
-    { id: 'project1', startx: 69, starty: 12, sizex: 29, sizey: 28, colorid: 1 },
-    { id: 'about', startx: 2, starty: 59, sizex: 25, sizey: 28, colorid: 2 },
-    { id: 'contact', startx: 29, starty: 59, sizex: 25, sizey: 28, colorid: 1 },
-    { id: 'project2', startx: 69, starty: 42, sizex: 29, sizey: 15, colorid: 2 },
-    { id: 'project3', startx: 56, starty: 59, sizex: 21, sizey: 28, colorid: 1 },
-    { id: 'project4', startx: 79, starty: 59, sizex: 19, sizey: 28, colorid: 2 }
+    { id: '1', startx: 0, starty: 12, sizex: 35, sizey: 40, colorid: 1 },
+    { id: '2', startx: 37, starty: 12, sizex: 35, sizey: 40, colorid: 2 },
+    { id: '3', startx: 74, starty: 12, sizex: 35, sizey: 40, colorid: 1 },
+    { id: '4', startx: 0, starty: 54, sizex: 35, sizey: 43, colorid: 2 },
+    { id: '5', startx: 37, starty: 54, sizex: 35, sizey: 43, colorid: 1 },
+    { id: '6', startx: 74, starty: 54, sizex: 35, sizey: 43, colorid: 2 }
+
+    // { id: 'hero', startx: 0, starty: 12, sizex: 35, sizey: 45, colorid: 1 },
+    // { id: 'profile', startx: 39, starty: 12, sizex: 28, sizey: 45, colorid: 2 },
+    // { id: 'project1', startx: 69, starty: 12, sizex: 38, sizey: 28, colorid: 1 },
+    // { id: 'about', startx: 0, starty: 59, sizex: 25, sizey: 28, colorid: 2 },
+    // { id: 'contact', startx: 29, starty: 59, sizex: 25, sizey: 28, colorid: 1 },
+    // { id: 'project2', startx: 69, starty: 42, sizex: 29, sizey: 15, colorid: 2 },
+    // { id: 'project3', startx: 56, starty: 59, sizex: 21, sizey: 28, colorid: 1 },
+    // { id: 'project4', startx: 79, starty: 59, sizex: 19, sizey: 28, colorid: 2 }
 ];
 
 let lastScrollY = 0;
 let isScrollingDown = false;
+let scrollbarTimeout;
+const container = document.querySelector('.container');
 
 // Initialize cards
-function initializeCards() {
-    const container = document.querySelector('.container');
-    
+function initializeCards() {    
     cardConfig.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.className = `card color-${card.colorid}`;
@@ -114,6 +121,19 @@ function handleScroll() {
     lastScrollY = currentScrollY;
 }
 
+function showScrollbar() {
+    container.classList.add('scrollbar-visible');
+    clearTimeout(scrollbarTimeout);
+    
+    scrollbarTimeout = setTimeout(() => {
+        container.classList.remove('scrollbar-visible');
+    }, 2000); // Hide after 2 seconds
+}
+
+// Show scrollbar on mouse movement or scroll
+document.addEventListener('mousemove', showScrollbar);
+container.addEventListener('scroll', showScrollbar);
+
 // Handle window resize
 function handleResize() {
     if (window.innerWidth <= 768) {
@@ -158,4 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.sidebar-nav .nav-link:not(.theme-toggle)').forEach(link => {
         link.addEventListener('click', closeSidebar);
     });
+
+    showScrollbar();
 });
