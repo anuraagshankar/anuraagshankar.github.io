@@ -3,11 +3,11 @@ const cardConfig = [
   { id: 'photo', startx: 24, starty: 12,  sizex: 23, sizey: 28, colorid: 2 },
   { id: 'education', startx: 48, starty: 12,  sizex: 28, sizey: 28, colorid: 1 },
   { id: 'professional_experience', startx: 77, starty: 12, sizex: 23, sizey: 40, colorid: 3 },
-  { id: 'publications', startx: 0,  starty: 59, sizex: 23, sizey: 39, colorid: 2},
-  { id: 'hobbies', startx: 24, starty: 41, sizex: 30, sizey: 57, colorid: 3 },
-  { id: 'teaching_and_mentoring_experience', startx: 55, starty: 41, sizex: 21, sizey: 30, colorid: 2 },
-  { id: 'coursework', startx: 77, starty: 53, sizex:  23, sizey: 45, colorid: 2 },
-  { id: 'achievements', startx: 55, starty: 72, sizex:  21, sizey: 26, colorid: 1 },
+  { id: 'publications', startx: 0,  starty: 60, sizex: 23, sizey: 37, colorid: 2},
+  { id: 'hobbies', startx: 24, starty: 42, sizex: 30, sizey: 55, colorid: 3 },
+  { id: 'teaching_and_mentoring_experience', startx: 55, starty: 42, sizex: 21, sizey: 28, colorid: 2 },
+  { id: 'coursework', startx: 77, starty: 54, sizex:  23, sizey: 43, colorid: 2 },
+  { id: 'achievements', startx: 55, starty: 72, sizex:  21, sizey: 25, colorid: 1 },
 ];
 
 
@@ -15,6 +15,129 @@ let lastScrollY = 0;
 let isScrollingDown = false;
 let scrollbarTimeout;
 const container = document.querySelector('.container');
+let expandedCard = null;
+
+// Load card content from HTML files
+async function loadCardContent(cardId) {
+    try {
+        const response = await fetch(`cards/${cardId}.html`);
+        const html = await response.text();
+        return html;
+    } catch (error) {
+        console.error(`Failed to load content for ${cardId}:`, error);
+        return null;
+    }
+}
+
+// Initialize card content and add click handlers
+async function initializeCardContent() {
+    for (const card of cardConfig) {
+        const cardElement = document.getElementById(card.id);
+        const content = await loadCardContent(card.id);
+        
+        if (content && cardElement) {
+            cardElement.innerHTML = content;
+            
+            // Add click handler for card expansion/collapse
+            cardElement.addEventListener('click', (e) => {
+                if (window.innerWidth > 768) {
+                    // Desktop behavior
+                    handleDesktopCardClick(card.id, e);
+                } else {
+                    // Mobile behavior
+                    handleMobileCardClick(card.id, e);
+                }
+            });
+        }
+    }
+}
+
+// Handle desktop card interactions
+function handleDesktopCardClick(cardId, event) {
+    const cardElement = document.getElementById(cardId);
+    const isExpanded = cardElement.classList.contains('expanded');
+    
+    // Check if click is on close button
+    if (event.target.classList.contains('close-icon')) {
+        collapseCard(cardId);
+        return;
+    }
+    
+    if (isExpanded) {
+        return; // Card is already expanded, do nothing unless close clicked
+    }
+    
+    // Collapse any currently expanded card
+    if (expandedCard && expandedCard !== cardId) {
+        collapseCard(expandedCard);
+    }
+    
+    expandCard(cardId);
+}
+
+// Handle mobile card interactions
+function handleMobileCardClick(cardId, event) {
+    const cardElement = document.getElementById(cardId);
+    const isExpanded = cardElement.classList.contains('expanded');
+    
+    // Check if click is on close button
+    if (event.target.classList.contains('close-icon')) {
+        collapseCard(cardId);
+        return;
+    }
+    
+    if (isExpanded) {
+        collapseCard(cardId);
+    } else {
+        // Collapse any currently expanded card
+        if (expandedCard && expandedCard !== cardId) {
+            collapseCard(expandedCard);
+        }
+        expandCard(cardId);
+    }
+}
+
+// Expand card
+function expandCard(cardId) {
+    const cardElement = document.getElementById(cardId);
+    cardElement.classList.add('expanded');
+    expandedCard = cardId;
+    
+    // Show full content, hide preview
+    const previewDesktop = cardElement.querySelector('.preview-desktop');
+    const previewMobile = cardElement.querySelector('.preview-mobile');
+    const fullDesktop = cardElement.querySelector('.full-desktop');
+    const fullMobile = cardElement.querySelector('.full-mobile');
+    
+    if (window.innerWidth > 768) {
+        if (previewDesktop) previewDesktop.style.display = 'none';
+        if (fullDesktop) fullDesktop.style.display = 'block';
+    } else {
+        if (previewMobile) previewMobile.style.display = 'none';
+        if (fullMobile) fullMobile.style.display = 'block';
+    }
+}
+
+// Collapse card
+function collapseCard(cardId) {
+    const cardElement = document.getElementById(cardId);
+    cardElement.classList.remove('expanded');
+    expandedCard = null;
+    
+    // Show preview content, hide full
+    const previewDesktop = cardElement.querySelector('.preview-desktop');
+    const previewMobile = cardElement.querySelector('.preview-mobile');
+    const fullDesktop = cardElement.querySelector('.full-desktop');
+    const fullMobile = cardElement.querySelector('.full-mobile');
+    
+    if (window.innerWidth > 768) {
+        if (previewDesktop) previewDesktop.style.display = 'block';
+        if (fullDesktop) fullDesktop.style.display = 'none';
+    } else {
+        if (previewMobile) previewMobile.style.display = 'block';
+        if (fullMobile) fullMobile.style.display = 'none';
+    }
+}
 
 // Initialize cards
 function initializeCards() {    
@@ -129,7 +252,34 @@ function showScrollbar() {
 document.addEventListener('mousemove', showScrollbar);
 container.addEventListener('scroll', showScrollbar);
 
-// Handle window resize
+// Handle window resize for card content
+function handleCardResize() {
+    cardConfig.forEach(card => {
+        const cardElement = document.getElementById(card.id);
+        if (cardElement) {
+            const previewDesktop = cardElement.querySelector('.preview-desktop');
+            const previewMobile = cardElement.querySelector('.preview-mobile');
+            const fullDesktop = cardElement.querySelector('.full-desktop');
+            const fullMobile = cardElement.querySelector('.full-mobile');
+            
+            if (window.innerWidth > 768) {
+                // Desktop view
+                if (previewDesktop) previewDesktop.style.display = cardElement.classList.contains('expanded') ? 'none' : 'block';
+                if (previewMobile) previewMobile.style.display = 'none';
+                if (fullDesktop) fullDesktop.style.display = cardElement.classList.contains('expanded') ? 'block' : 'none';
+                if (fullMobile) fullMobile.style.display = 'none';
+            } else {
+                // Mobile view
+                if (previewDesktop) previewDesktop.style.display = 'none';
+                if (previewMobile) previewMobile.style.display = cardElement.classList.contains('expanded') ? 'none' : 'block';
+                if (fullDesktop) fullDesktop.style.display = 'none';
+                if (fullMobile) fullMobile.style.display = cardElement.classList.contains('expanded') ? 'block' : 'none';
+            }
+        }
+    });
+}
+
+// Update the existing handleResize function to include card content handling
 function handleResize() {
     if (window.innerWidth <= 768) {
         // Mobile view - reset card positioning
@@ -156,12 +306,18 @@ function handleResize() {
         // Close sidebar if open
         closeSidebar();
     }
+    
+    // Handle card content visibility
+    handleCardResize();
 }
 
-// Initialize everything when page loads
-document.addEventListener('DOMContentLoaded', function() {
+// Update the DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', async function() {
     loadTheme();
     initializeCards();
+    
+    // Initialize card content after cards are created
+    await initializeCardContent();
     
     // Add scroll listener
     window.addEventListener('scroll', handleScroll);
