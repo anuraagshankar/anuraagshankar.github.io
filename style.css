@@ -258,7 +258,7 @@ body {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .container {
-        padding: 120px 10px 20px 10px;
+        padding: 100px 10px 20px 10px;
     }
 
     body {
@@ -273,6 +273,13 @@ body {
         border-radius: 16px;
     }
 
+    .card:not(.top-bar) {
+        position: relative !important;
+        height: 95vh !important;
+        margin-bottom: 20px;
+        display: block;
+    }
+
     .name {
         font-size: 1.2rem;
     }
@@ -282,17 +289,6 @@ body {
     }
 
     .hamburger-btn {
-        display: block;
-    }
-
-    /* Mobile card layout */
-    .card:not(.top-bar) {
-        position: relative !important;
-        width: 95% !important;
-        height: 95vh !important;
-        left: 2.5% !important;
-        top: auto !important;
-        margin-bottom: 20px;
         display: block;
     }
 }
