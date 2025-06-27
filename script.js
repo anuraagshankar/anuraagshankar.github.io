@@ -311,6 +311,22 @@ function handleResize() {
     handleCardResize();
 }
 
+// Close expanded card when clicking outside on desktop
+document.addEventListener('click', (event) => {
+    // Only apply on desktop
+    if (window.innerWidth <= 768) return;
+    
+    // Only if there's an expanded card
+    if (!expandedCard) return;
+    
+    const expandedCardElement = document.getElementById(expandedCard);
+    
+    // Check if click is outside the expanded card
+    if (!expandedCardElement.contains(event.target)) {
+        collapseCard(expandedCard);
+    }
+});
+
 // Update the DOMContentLoaded event listener
 document.addEventListener('DOMContentLoaded', async function() {
     loadTheme();
