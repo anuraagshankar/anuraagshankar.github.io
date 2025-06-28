@@ -36,6 +36,18 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    text-decoration-color: var(--text-color);
+    opacity: 0.8;
+}
+
 .container {
     position: relative;
     width: 100vw;
