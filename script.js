@@ -2,11 +2,11 @@ const cardConfig = [
     { id: 'photo', startx: 24, starty: 12,  sizex: 23, sizey: 28, colorid: 2 },
     { id: 'research_experience', startx: 0,  starty: 12,  sizex: 23, sizey: 38, colorid: 1 },
     { id: 'education', startx: 48, starty: 12,  sizex: 28, sizey: 28, colorid: 1 },
-    { id: 'professional_experience', startx: 77, starty: 12, sizex: 23, sizey: 40, colorid: 3 },
+    { id: 'professional_experience', startx: 77, starty: 12, sizex: 23, sizey: 28, colorid: 3 },
     { id: 'publications', startx: 0,  starty: 52, sizex: 23, sizey: 45, colorid: 2},
     { id: 'hobbies', startx: 24, starty: 42, sizex: 30, sizey: 55, colorid: 3 },
     { id: 'teaching_and_mentoring_experience', startx: 55, starty: 42, sizex: 21, sizey: 28, colorid: 2 },
-    { id: 'coursework', startx: 77, starty: 54, sizex:  23, sizey: 43, colorid: 2 },
+    { id: 'coursework', startx: 77, starty: 42, sizex:  23, sizey: 55, colorid: 2 },
     { id: 'achievements', startx: 55, starty: 72, sizex:  21, sizey: 25, colorid: 1 },
 ];
 
