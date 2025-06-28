@@ -36,7 +36,15 @@ async function initializeCardContent() {
         const content = await loadCardContent(card.id);
         
         if (content && cardElement) {
-            cardElement.innerHTML = content;
+            // Instead of innerHTML, create elements safely
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            
+            // Clear the card and append the parsed content
+            cardElement.innerHTML = '';
+            while (tempDiv.firstChild) {
+                cardElement.appendChild(tempDiv.firstChild);
+            }
             
             // Add click handler for card expansion/collapse
             cardElement.addEventListener('click', (e) => {
