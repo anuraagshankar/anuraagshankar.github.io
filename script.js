@@ -17,42 +17,85 @@ let scrollbarTimeout;
 const container = document.querySelector('.container');
 let expandedCard = null;
 
-// Load card content from HTML files
-async function loadCardContent(cardId) {
+async function loadCardContentFromJSON() {
     try {
-        const response = await fetch(`cards/${cardId}.html`);
-        const html = await response.text();
-        return html;
+        const response = await fetch('cardContent.json');
+        const cardContentData = await response.json();
+        return cardContentData;
     } catch (error) {
-        console.error(`Failed to load content for ${cardId}:`, error);
+        console.error('Failed to load card content JSON:', error);
         return null;
     }
 }
 
 // Initialize card content and add click handlers
 async function initializeCardContent() {
+    const cardContentData = await loadCardContentFromJSON();
+    
+    if (!cardContentData) {
+        console.error('Failed to load card content data');
+        return;
+    }
+    
     for (const card of cardConfig) {
         const cardElement = document.getElementById(card.id);
-        const content = await loadCardContent(card.id);
+        const cardData = cardContentData[card.id];
         
-        if (content && cardElement) {
-            // Instead of innerHTML, create elements safely
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = content;
+        if (cardData && cardElement) {
+            // Create content sections using DOMParser (CSP-safe)
+            const parser = new DOMParser();
             
-            // Clear the card and append the parsed content
-            cardElement.innerHTML = '';
-            while (tempDiv.firstChild) {
-                cardElement.appendChild(tempDiv.firstChild);
+            // Create preview desktop
+            if (cardData.preview_desktop) {
+                const previewDesktop = document.createElement('div');
+                previewDesktop.className = 'preview-desktop';
+                const doc = parser.parseFromString(`<div>${cardData.preview_desktop}</div>`, 'text/html');
+                while (doc.body.firstChild.firstChild) {
+                    previewDesktop.appendChild(doc.body.firstChild.firstChild);
+                }
+                cardElement.appendChild(previewDesktop);
+            }
+            
+            // Create preview mobile
+            if (cardData.preview_mobile) {
+                const previewMobile = document.createElement('div');
+                previewMobile.className = 'preview-mobile';
+                const doc = parser.parseFromString(`<div>${cardData.preview_mobile}</div>`, 'text/html');
+                while (doc.body.firstChild.firstChild) {
+                    previewMobile.appendChild(doc.body.firstChild.firstChild);
+                }
+                cardElement.appendChild(previewMobile);
+            }
+            
+            // Create full desktop
+            if (cardData.full_desktop) {
+                const fullDesktop = document.createElement('div');
+                fullDesktop.className = 'full-desktop';
+                fullDesktop.style.display = 'none';
+                const doc = parser.parseFromString(`<div>${cardData.full_desktop}</div>`, 'text/html');
+                while (doc.body.firstChild.firstChild) {
+                    fullDesktop.appendChild(doc.body.firstChild.firstChild);
+                }
+                cardElement.appendChild(fullDesktop);
+            }
+            
+            // Create full mobile
+            if (cardData.full_mobile) {
+                const fullMobile = document.createElement('div');
+                fullMobile.className = 'full-mobile';
+                fullMobile.style.display = 'none';
+                const doc = parser.parseFromString(`<div>${cardData.full_mobile}</div>`, 'text/html');
+                while (doc.body.firstChild.firstChild) {
+                    fullMobile.appendChild(doc.body.firstChild.firstChild);
+                }
+                cardElement.appendChild(fullMobile);
             }
             
             // Add click handler for card expansion/collapse
             cardElement.addEventListener('click', (e) => {
                 if (window.innerWidth > 768) {
-                    // Desktop behavior
                     handleDesktopCardClick(card.id, e);
                 } else {
-                    // Mobile behavior
                     handleMobileCardClick(card.id, e);
                 }
             });
