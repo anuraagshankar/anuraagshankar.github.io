@@ -1,9 +1,9 @@
 const cardConfig = [
     { id: 'photo', startx: 24, starty: 12,  sizex: 23, sizey: 28, colorid: 2 },
-    { id: 'research_experience', startx: 0,  starty: 12,  sizex: 23, sizey: 38, colorid: 1 },
-    { id: 'education', startx: 48, starty: 12,  sizex: 28, sizey: 28, colorid: 1 },
-    { id: 'publications', startx: 0,  starty: 52, sizex: 23, sizey: 45, colorid: 2},
     { id: 'hobbies', startx: 24, starty: 42, sizex: 30, sizey: 55, colorid: 3 },
+    { id: 'education', startx: 48, starty: 12,  sizex: 28, sizey: 28, colorid: 1 },
+    { id: 'research_experience', startx: 0,  starty: 12,  sizex: 23, sizey: 38, colorid: 1 },
+    { id: 'publications', startx: 0,  starty: 52, sizex: 23, sizey: 45, colorid: 2},
     { id: 'professional_experience', startx: 55, starty: 42, sizex: 21, sizey: 28, colorid: 2 },
     { id: 'teaching_and_mentoring_experience', startx: 77, starty: 12, sizex:  23, sizey: 55, colorid: 3 },
     { id: 'coursework', startx: 77, starty: 69, sizex: 23, sizey: 28, colorid: 2 },
@@ -105,6 +105,11 @@ async function initializeCardContent() {
 
 // Handle desktop card interactions
 function handleDesktopCardClick(cardId, event) {
+    // Prevent expansion for photo card
+    if (cardId === 'photo') {
+        return;
+    }
+    
     const cardElement = document.getElementById(cardId);
     const isExpanded = cardElement.classList.contains('expanded');
     
@@ -128,6 +133,11 @@ function handleDesktopCardClick(cardId, event) {
 
 // Handle mobile card interactions
 function handleMobileCardClick(cardId, event) {
+    // Prevent expansion for photo card
+    if (cardId === 'photo') {
+        return;
+    }
+    
     const cardElement = document.getElementById(cardId);
     const isExpanded = cardElement.classList.contains('expanded');
     

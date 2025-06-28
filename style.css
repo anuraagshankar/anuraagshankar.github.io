@@ -1677,3 +1677,218 @@ a:hover {
         text-decoration: none;
     }
 }
+
+/* =============================================
+   ACHIEVEMENTS SPECIFIC STYLES
+   ============================================= */
+
+/* Preview Styles - Desktop */
+.achievements-preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-item-preview {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.achievement-item-preview:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.achievement-badge {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-color-2);
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+}
+
+.achievement-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-color);
+}
+
+.achievement-detail {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Preview Styles - Mobile */
+@media (max-width: 768px) {
+    .mobile-achievements-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .mobile-achievement-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .mobile-achievement-icon {
+        font-size: 1.2rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-color-2);
+        border-radius: 50%;
+        border: 1px solid var(--border-color);
+        flex-shrink: 0;
+    }
+
+    .achievement-info {
+        flex: 1;
+    }
+
+    .achievement-title {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 0 0 0.15rem 0;
+        line-height: 1.3;
+    }
+
+    .achievement-meta {
+        font-size: 0.8rem;
+        opacity: 0.7;
+        margin: 0;
+    }
+}
+
+/* Full Content Styles - Desktop */
+.achievement-item-full {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.achievement-item-full:last-child {
+    border-bottom: none;
+}
+
+.achievement-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.achievement-icon-large {
+    font-size: 2.5rem;
+    margin-right: 1.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--card-color-2), var(--card-color-3));
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.achievement-main h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-color);
+}
+
+.achievement-organization {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.achievement-description {
+    margin-left: 75px;
+}
+
+.achievement-description p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Full Content Styles - Mobile */
+@media (max-width: 768px) {
+    .achievement-item-mobile {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .achievement-item-mobile:last-child {
+        border-bottom: none;
+    }
+
+    .mobile-achievement-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .mobile-achievement-icon-large {
+        font-size: 1.8rem;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--card-color-2), var(--card-color-3));
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+        flex-shrink: 0;
+    }
+
+    .mobile-achievement-header h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 0.25rem 0;
+        color: var(--text-color);
+        line-height: 1.3;
+    }
+
+    .mobile-organization {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .mobile-achievement-description {
+        margin-left: 0;
+    }
+
+    .mobile-achievement-description p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin: 0;
+        opacity: 0.9;
+    }
+}
